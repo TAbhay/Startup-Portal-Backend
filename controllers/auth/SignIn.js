@@ -24,8 +24,9 @@ export default async (req, res) => {
       if (await bcrypt.compare(password, user.password)) {
         const accessToken = jwt.sign(
           {
-            username: user.username,
+            email: user.email,
             _id: user._id,
+            role: user.role,
           },
           process.env.ACCESS_TOKEN_SECRET,
           { expiresIn: "1h" } // 1 hour
