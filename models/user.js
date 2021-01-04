@@ -3,40 +3,36 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: [true, "can't be blank"],
+    required: [true, "username is required"],
+    unique: true,
   },
   email: {
     type: String,
-    lowercase: true,
-    required: [true, "can't be blank"],
-    minlength: 16, // minimum length setup for webmail of ...@iitp.ac.in
+    required: [true, "email is required"],
+    unique: true,
   },
   rollNo: {
     type: String,
-  },
-  pass_salt: {
-    type: String,
+    unique: true,
   },
   role: {
     type: Number,
     default: 0,
   },
-  hashed_pass: {
+  password: {
     type: String,
   },
-  is_verified: {
+  isVerified: {
     type: Boolean,
     default: false,
   },
-  secret_token: {
+  verificationToken: {
     type: String,
   },
-  /*  Job: [
-      {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Job'
-      }
-    ]  */
+  accessToken: {
+    type: String,
+    default: null,
+  },
 });
 
 const User = mongoose.model("User", userSchema);
